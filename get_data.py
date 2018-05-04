@@ -1,14 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 import re
 import csv
 import argparse
-import urllib2
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 
 # Remove stuff
-def norm(s):
+def normalize(s):
     s = re.sub(r"\(.*\)", "", s)
     s = re.sub(r"^.* voor ", "", s)
 
@@ -24,10 +25,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     wiki_url = 'https://nl.wikipedia.org/wiki/Lijst_van_Belgische_bieren'
-    html = urllib2.urlopen(wiki_url).read()
+    html = urlopen(wiki_url).read()
     soup = BeautifulSoup(html, "html.parser")
 
-    with open(args.out + ".csv", "wb") as out:
+    with open(args.out + ".csv", "w") as out:
         writer = csv.writer(out, delimiter=args.delimiter, quoting=csv.QUOTE_MINIMAL)
 
         # Hardcoded header
@@ -41,9 +42,9 @@ if __name__ == '__main__':
                     data.append(cell.text)
 
                 try:
-                    writer.writerow([norm(v.encode("utf-8")) for v in data])
+                    writer.writerow([normalize(v) for v in data])
                 except Exception as err:
-                    print err
-                    print "Error with %s" % data
+                    print(err)
+                    print("Error with %s" % data)
 
-    print "Done."
+    print("Done.")

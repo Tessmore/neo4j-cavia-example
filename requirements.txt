@@ -1,4 +1,2 @@
 py2neo
-unicodecsv
-urllib2
 beautifulsoup4

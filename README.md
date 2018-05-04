@@ -53,7 +53,7 @@ python get_data.py --out data/belgian_beers
 Given the example file:
 
 ```
-python main.py --file data/Belgian\ beers\ -\ Sheet1.csv
+python main.py --file data/belgian_beers.csv --user neo4j --password test
 ```
 
 > For small datasets this is fine, it creates all nodes and relations. If you have GBs of data you might want to
